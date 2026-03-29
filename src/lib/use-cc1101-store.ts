@@ -174,7 +174,7 @@ export const useCC1101Store = create<CC1101Store>((set) => ({
 
   loadRegDefs: async () => {
     try {
-      const res = await fetch("/cc1101_registers.json");
+      const res = await fetch(`${import.meta.env.BASE_URL}cc1101_registers.json`);
       const data: RegisterDef[] = await res.json();
 
       const resetRegs: RegisterMap = {};
