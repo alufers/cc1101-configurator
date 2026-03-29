@@ -1,0 +1,1550 @@
+[
+  {
+    "name": "IOCFG2",
+    "address": 0,
+    "description": "GDO2 Output Pin Configuration",
+    "bitfields": [
+      {
+        "name": "GDO2_INV",
+        "startBit": 6,
+        "stopBit": 6,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Invert output, i.e. select active low (1) / high (0)"
+      },
+      {
+        "name": "GDO2_CFG[5:0]",
+        "startBit": 5,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 41,
+        "values": [],
+        "description": "Default is CHP_RDYn."
+      }
+    ]
+  },
+  {
+    "name": "IOCFG1",
+    "address": 1,
+    "description": "GDO1 Output Pin Configuration",
+    "bitfields": [
+      {
+        "name": "GDO_DS",
+        "startBit": 7,
+        "stopBit": 7,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Set high (1) or low (0) output drive strength on the GDO pins."
+      },
+      {
+        "name": "GDO1_INV",
+        "startBit": 6,
+        "stopBit": 6,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Invert output, i.e. select active low (1) / high (0)"
+      },
+      {
+        "name": "GDO1_CFG[5:0]",
+        "startBit": 5,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 46,
+        "values": [],
+        "description": "Default is 3-state."
+      }
+    ]
+  },
+  {
+    "name": "IOCFG0",
+    "address": 2,
+    "description": "GDO0 Output Pin Configuration",
+    "bitfields": [
+      {
+        "name": "TEMP_SENSOR_ENABLE",
+        "startBit": 7,
+        "stopBit": 7,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Enable analog temperature sensor. Write 0 in all other register bits when using temperature sensor."
+      },
+      {
+        "name": "GDO0_INV",
+        "startBit": 6,
+        "stopBit": 6,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Invert output, i.e. select active low (1) / high (0)"
+      },
+      {
+        "name": "GDO0_CFG[5:0]",
+        "startBit": 5,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 63,
+        "values": [],
+        "description": "Default is CLK_XOSC/192. It is recommended to disable the clock output in initialization, in order to optimize RF performance."
+      }
+    ]
+  },
+  {
+    "name": "FIFOTHR",
+    "address": 3,
+    "description": "RX FIFO and TX FIFO Thresholds",
+    "bitfields": [
+      {
+        "name": "",
+        "startBit": 7,
+        "stopBit": 7,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Reserved , write 0 for compatibility with possible future extensions"
+      },
+      {
+        "name": "ADC_RETENTION",
+        "startBit": 6,
+        "stopBit": 6,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [
+          {
+            "number": 0,
+            "brief": "TEST1 = 0x31 and TEST2 = 0x88 when waking up from SLEEP"
+          },
+          {
+            "number": 1,
+            "brief": "TEST1 = 0x35 and TEST2 = 0x81 when waking up from SLEEP"
+          }
+        ],
+        "description": "Note that the changes in the TEST registers due to the ADC_RETENTION bit setting are only seen INTERNALLY in the analog part. The values read from the TEST registers when waking up from SLEEP mode will always be the reset value.\n\nThe ADC_RETENTION bit should be set to 1before going into SLEEP mode if settings with an RX filter bandwidth below 325 kHz are wanted at time of wake-up."
+      },
+      {
+        "name": "CLOSE_IN_RX [1:0]",
+        "startBit": 5,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [
+          {
+            "number": 0,
+            "brief": "0dB"
+          },
+          {
+            "number": 1,
+            "brief": "6dB"
+          },
+          {
+            "number": 2,
+            "brief": "12dB"
+          },
+          {
+            "number": 3,
+            "brief": "18dB"
+          }
+        ],
+        "description": "For more details, please see DN010 [11]"
+      },
+      {
+        "name": "FIFO_THR[3:0]",
+        "startBit": 3,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 7,
+        "values": [],
+        "description": "Set the threshold for the TX FIFO and RX FIFO. The threshold is exceeded when the number of bytes in the FIFO is equal to or higher than the threshold value.\n<Table><TR><TD>Setting </TD><TD>Bytes in TX FIFO </TD><TD>Bytes in RX FIFO </TD></TR><TR><TD>0 (0000) </TD><TD>61 </TD><TD>4 </TD></TR><TR><TD>1 (0001) </TD><TD>57 </TD><TD>8 </TD></TR><TR><TD>2 (0010) </TD><TD>53 </TD><TD>12 </TD></TR><TR><TD>3 (0011) </TD><TD>49 </TD><TD>16 </TD></TR><TR><TD>4 (0100) </TD><TD>45 </TD><TD>20 </TD></TR><TR><TD>5 (0101) </TD><TD>41 </TD><TD>24 </TD></TR><TR><TD>6 (0110) </TD><TD>37 </TD><TD>28 </TD></TR><TR><TD>7 (0111) </TD><TD>33 </TD><TD>32 </TD></TR><TR><TD>8 (1000) </TD><TD>29 </TD><TD>36 </TD></TR><TR><TD>9 (1001) </TD><TD>25 </TD><TD>40 </TD></TR><TR><TD>10 (1010) </TD><TD>21 </TD><TD>44 </TD></TR><TR><TD>11 (1011) </TD><TD>17 </TD><TD>48 </TD></TR><TR><TD>12 (1100) </TD><TD>13 </TD><TD>52 </TD></TR><TR><TD>13 (1101) </TD><TD>9 </TD><TD>56 </TD></TR><TR><TD>14 (1110) </TD><TD>5 </TD><TD>60 </TD></TR><TR><TD>15 (1111) </TD><TD>1 </TD><TD>64 </TD></TR></Table>"
+      }
+    ]
+  },
+  {
+    "name": "SYNC1",
+    "address": 4,
+    "description": "Sync Word, High Byte",
+    "bitfields": [
+      {
+        "name": "SYNC[15:8]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 211,
+        "values": [],
+        "description": "8 MSB of 16-bit sync word"
+      }
+    ]
+  },
+  {
+    "name": "SYNC0",
+    "address": 5,
+    "description": "Sync Word, Low Byte",
+    "bitfields": [
+      {
+        "name": "SYNC[7:0]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 145,
+        "values": [],
+        "description": "8 LSB of 16-bit sync word"
+      }
+    ]
+  },
+  {
+    "name": "PKTLEN",
+    "address": 6,
+    "description": "Packet Length",
+    "bitfields": [
+      {
+        "name": "PACKET_LENGTH",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 255,
+        "values": [],
+        "description": "Indicates the packet length when fixed packet length mode is enabled. If variable packet length mode is used, this value indicates the maximum packet length allowed."
+      }
+    ]
+  },
+  {
+    "name": "PKTCTRL1",
+    "address": 7,
+    "description": "Packet Automation Control",
+    "bitfields": [
+      {
+        "name": "PQT[2:0]",
+        "startBit": 7,
+        "stopBit": 5,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Preamble quality estimator threshold.\nThe preamble quality estimator increases an internal counter by one each time a bit is received that is different from the previous bit, and decreases the counter by 8 each time a bit is received that is the same as the last bit.\nA threshold of 4\u2219PQT for this counter is used to gate sync word detection. When PQT=0 a sync word is always accepted."
+      },
+      {
+        "name": "",
+        "startBit": 4,
+        "stopBit": 4,
+        "access": "R0",
+        "resetValue": 0,
+        "values": [],
+        "description": "Not Used."
+      },
+      {
+        "name": "CRC_AUTOFLUSH",
+        "startBit": 3,
+        "stopBit": 3,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Enable automatic flush of RX FIFO when CRC is not OK. This requires that only one packet is in the RXIFIFO and that packet length is limited to the RX FIFO size."
+      },
+      {
+        "name": "APPEND_STATUS",
+        "startBit": 2,
+        "stopBit": 2,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "When enabled, two status bytes will be appended to the payload of the packet. The status bytes contain RSSI and LQI values, as well as CRC OK."
+      },
+      {
+        "name": "ADR_CHK[1:0]",
+        "startBit": 1,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [
+          {
+            "number": 0,
+            "brief": "No address check"
+          },
+          {
+            "number": 1,
+            "brief": "Address check, no broadcast"
+          },
+          {
+            "number": 2,
+            "brief": "Address check and 0 (0x00) broadcast"
+          },
+          {
+            "number": 3,
+            "brief": "Address check and 0 (0x00) and 255 (0xFF) broadcast"
+          }
+        ],
+        "description": "Controls address check configuration of received packages."
+      }
+    ]
+  },
+  {
+    "name": "PKTCTRL0",
+    "address": 8,
+    "description": "Packet Automation Control",
+    "bitfields": [
+      {
+        "name": "WHITE_DATA",
+        "startBit": 6,
+        "stopBit": 6,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [
+          {
+            "number": 0,
+            "brief": "Whitening off"
+          },
+          {
+            "number": 1,
+            "brief": "Whitening on"
+          }
+        ],
+        "description": "Turn data whitening on / off."
+      },
+      {
+        "name": "PKT_FORMAT[1:0]",
+        "startBit": 5,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [
+          {
+            "number": 0,
+            "brief": "Normal mode, use FIFOs for RX and TX"
+          },
+          {
+            "number": 1,
+            "brief": "Synchronous serial mode, Data in on GDO0 and data out on either of the GDOx pins"
+          },
+          {
+            "number": 2,
+            "brief": "Random TX mode; sends random data using PN9 generator. Used for test. Works as normal mode, setting 0 (00), in RX"
+          },
+          {
+            "number": 3,
+            "brief": "Asynchronous serial mode, Data in on GDO0 and data out on either of the GDOx pins"
+          }
+        ],
+        "description": "Format of RX and TX data"
+      },
+      {
+        "name": "",
+        "startBit": 3,
+        "stopBit": 3,
+        "access": "R0",
+        "resetValue": 0,
+        "values": [],
+        "description": "Not used"
+      },
+      {
+        "name": "CRC_EN",
+        "startBit": 2,
+        "stopBit": 2,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [
+          {
+            "number": 1,
+            "brief": "CRC calculation in TX and CRC check in RX enabled"
+          },
+          {
+            "number": 0,
+            "brief": "CRC disabled for TX and RX"
+          }
+        ],
+        "description": ""
+      },
+      {
+        "name": "LENGTH_CONFIG[1:0]",
+        "startBit": 1,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [
+          {
+            "number": 0,
+            "brief": "Fixed packet length mode. Length configured in PKTLEN register"
+          },
+          {
+            "number": 1,
+            "brief": "Variable packet length mode. Packet length configured by the first byte after sync word"
+          },
+          {
+            "number": 2,
+            "brief": "Infinite packet length mode"
+          },
+          {
+            "number": 3,
+            "brief": "Reserved"
+          }
+        ],
+        "description": "Configure the packet length"
+      }
+    ]
+  },
+  {
+    "name": "ADDR",
+    "address": 9,
+    "description": "Device Address",
+    "bitfields": [
+      {
+        "name": "DEVICE_ADDR[7:0]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Address used for packet filtration. Optional broadcast addresses are 0 (0x00) and 255 (0xFF)."
+      }
+    ]
+  },
+  {
+    "name": "CHANNR",
+    "address": 10,
+    "description": "Channel Number",
+    "bitfields": [
+      {
+        "name": "CHAN[7:0]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "The 8-bit unsigned channel number, which is multiplied by the channel spacing setting and added to the base frequency."
+      }
+    ],
+    "formulaNote": "Channel number. Carrier frequency = base + CHAN \u00d7 channel_spacing."
+  },
+  {
+    "name": "FSCTRL1",
+    "address": 11,
+    "description": "Frequency Synthesizer Control",
+    "bitfields": [
+      {
+        "name": "",
+        "startBit": 5,
+        "stopBit": 5,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Reserved"
+      },
+      {
+        "name": "FREQ_IF[4:0]",
+        "startBit": 4,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 15,
+        "values": [],
+        "description": "The desired IF frequency to employ in RX. Subtracted from FS base frequency in RX and controls the digital complex mixer in the demodulator.\n\n(See datasheet for equation).\n\nThe default value gives an IF frequency of 381kHz, assuming a 26.0 MHz crystal."
+      }
+    ],
+    "formulaNote": "IF frequency formula: f_IF = (f_XOSC / 2^10) \u00d7 FREQ_IF. Default 0x0F \u2192 381 kHz at 26 MHz crystal."
+  },
+  {
+    "name": "FSCTRL0",
+    "address": 12,
+    "description": "Frequency Synthesizer Control",
+    "bitfields": [
+      {
+        "name": "FREQOFF[7:0]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Frequency offset added to the base frequency before being used by the frequency synthesizer. (2s-complement).\nResolution is FXTAL/2^14 (1.59kHz-1.65kHz); range is \u00b1202 kHz to \u00b1210 kHz, dependent of XTAL frequency."
+      }
+    ],
+    "formulaNote": "Frequency offset compensation. Signed 8-bit value added to base frequency."
+  },
+  {
+    "name": "FREQ2",
+    "address": 13,
+    "description": "Frequency Control Word, High Byte",
+    "bitfields": [
+      {
+        "name": "FREQ[23:22]",
+        "startBit": 7,
+        "stopBit": 6,
+        "access": "R",
+        "resetValue": 0,
+        "values": [],
+        "description": "FREQ[23:22] is always 0 (the FREQ2 register is less than 36 with 26-27 MHz crystal)"
+      },
+      {
+        "name": "FREQ[21:16]",
+        "startBit": 5,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 30,
+        "values": [],
+        "description": "FREQ[23:0] is the base frequency for the frequency synthesiser in increments of fXOSC/2^16.\n\n(See datasheet for equation)."
+      }
+    ],
+    "formulaNote": "Formula: f_carrier = (f_XOSC / 2^16) \u00d7 FREQ[23:0]. With 26 MHz crystal, resolution = 396.7 Hz/LSB."
+  },
+  {
+    "name": "FREQ1",
+    "address": 14,
+    "description": "Frequency Control Word, Middle Byte",
+    "bitfields": [
+      {
+        "name": "FREQ[15:8]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 196,
+        "values": [],
+        "description": "Ref. FREQ2 register"
+      }
+    ],
+    "formulaNote": "Formula: f_carrier = (f_XOSC / 2^16) \u00d7 FREQ[23:0]. Middle byte of 24-bit frequency word."
+  },
+  {
+    "name": "FREQ0",
+    "address": 15,
+    "description": "Frequency Control Word, Low Byte",
+    "bitfields": [
+      {
+        "name": "FREQ[7:0]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 236,
+        "values": [],
+        "description": "Ref. FREQ2 register"
+      }
+    ],
+    "formulaNote": "Formula: f_carrier = (f_XOSC / 2^16) \u00d7 FREQ[23:0]. Low byte of 24-bit frequency word."
+  },
+  {
+    "name": "MDMCFG4",
+    "address": 16,
+    "description": "Modem Configuration",
+    "bitfields": [
+      {
+        "name": "CHANBW_E[1:0]",
+        "startBit": 7,
+        "stopBit": 6,
+        "access": "R/W",
+        "resetValue": 2,
+        "values": [],
+        "description": ""
+      },
+      {
+        "name": "CHANBW_M[1:0]",
+        "startBit": 5,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Sets the decimation ratio for the delta-sigma ADC input stream and thus the channel bandwidth.\n\n(See datasheet for equation).\n\nThe default values give 203 kHz channel filter bandwidth, assuming a 26.0 MHz crystal."
+      },
+      {
+        "name": "DRATE_E[3:0]",
+        "startBit": 3,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 12,
+        "values": [],
+        "description": "The exponent of the user specified symbol rate"
+      }
+    ],
+    "formulaNote": "RX BW formula: BW = f_XOSC / (8 \u00d7 (4 + CHANBW_M) \u00d7 2^CHANBW_E). Data rate formula: R = (256 + DRATE_M) \u00d7 2^DRATE_E \u00d7 f_XOSC / 2^28."
+  },
+  {
+    "name": "MDMCFG3",
+    "address": 17,
+    "description": "Modem Configuration",
+    "bitfields": [
+      {
+        "name": "DRATE_M[7:0]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 34,
+        "values": [],
+        "description": "The mantissa of the user specified symbol rate. The symbol rate is configured using an unsigned, floating-point number with 9-bit mantissa and 4-bit exponent. The 9th bit is a hidden \"1\".\nThe resulting data rate is:\n\n(See datasheet for equation).\n\nThe default values give a data rate of 115.051 kBaud (closest setting to 115.2 kBaud), assuming a 26.0 MHz crystal."
+      }
+    ],
+    "formulaNote": "Data rate formula: R = (256 + DRATE_M) \u00d7 2^DRATE_E \u00d7 f_XOSC / 2^28. DRATE_M is the 8-bit mantissa."
+  },
+  {
+    "name": "MDMCFG2",
+    "address": 18,
+    "description": "Modem Configuration",
+    "bitfields": [
+      {
+        "name": "DEM_DCFILT_OFF",
+        "startBit": 7,
+        "stopBit": 7,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [
+          {
+            "number": 1,
+            "brief": "Disable (current optimized)"
+          },
+          {
+            "number": 0,
+            "brief": "Enable (better sensitivity)"
+          }
+        ],
+        "description": "Disable digital DC blocking filter before demodulator.\n Only for data rates \u2264 250 kBaud The recommended IF frequency changes when the DC blocking is disabled.\nPlease use SmartRF Studio  to calculate correct register setting."
+      },
+      {
+        "name": "MOD_FORMAT[2:0]",
+        "startBit": 6,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [
+          {
+            "number": 0,
+            "brief": "2-FSK"
+          },
+          {
+            "number": 1,
+            "brief": "GFSK"
+          },
+          {
+            "number": 3,
+            "brief": "ASK/OOK"
+          },
+          {
+            "number": 4,
+            "brief": "4-FSK"
+          },
+          {
+            "number": 7,
+            "brief": "MSK"
+          }
+        ],
+        "description": "The modulation format of the radio signal  ASK is only supported for output powers up to -1 dBm MSK is only supported for datarates above 26 kBaud"
+      },
+      {
+        "name": "MANCHESTER_EN",
+        "startBit": 3,
+        "stopBit": 3,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [
+          {
+            "number": 0,
+            "brief": "Disable"
+          },
+          {
+            "number": 1,
+            "brief": "Enable"
+          }
+        ],
+        "description": "Enables Manchester encoding/decoding."
+      },
+      {
+        "name": "SYNC_MODE[2:0]",
+        "startBit": 2,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 2,
+        "values": [
+          {
+            "number": 0,
+            "brief": "No preamble/sync"
+          },
+          {
+            "number": 1,
+            "brief": "15/16 sync word bits detected"
+          },
+          {
+            "number": 2,
+            "brief": "16/16 sync word bits detected"
+          },
+          {
+            "number": 3,
+            "brief": "30/32 sync word bits detected"
+          },
+          {
+            "number": 4,
+            "brief": "No preamble/sync, carrier-sense above threshold"
+          },
+          {
+            "number": 5,
+            "brief": "15/16 + carrier-sense above threshold"
+          },
+          {
+            "number": 6,
+            "brief": "16/16 + carrier-sense above threshold"
+          },
+          {
+            "number": 7,
+            "brief": "30/32 + carrier-sense above threshold"
+          }
+        ],
+        "description": "Combined sync-word qualifier mode.\nThe values 0 (000) and 4 (100) disables preamble and sync word transmission in TX and preamble and sync word detection in RX. The values 1 (001), 2 (010), 5 (101) and 6 (110) enables 16-bit sync word transmission in TX and 16-bits sync word detection in RX. Only 15 of 16 bits need to match in RX when using setting 1 (001) or 5 (101). The values 3 (011) and 7 (111) enables repeated sync word transmission in TX and 32-bits sync word detection in RX (only 30 of 32 bits need to match)."
+      }
+    ]
+  },
+  {
+    "name": "MDMCFG1",
+    "address": 19,
+    "description": "Modem Configuration",
+    "bitfields": [
+      {
+        "name": "FEC_EN",
+        "startBit": 7,
+        "stopBit": 7,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [
+          {
+            "number": 0,
+            "brief": "Disable"
+          },
+          {
+            "number": 1,
+            "brief": "Enable"
+          }
+        ],
+        "description": "Enable Forward Error Correction (FEC) with interleaving for packet payload   (Only supported for fixed packet length mode, i.e. PKTCTRL0.LENGTH_CONFIG =0)"
+      },
+      {
+        "name": "NUM_PREAMBLE[2:0]",
+        "startBit": 6,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 2,
+        "values": [
+          {
+            "number": 0,
+            "brief": "2"
+          },
+          {
+            "number": 1,
+            "brief": "3"
+          },
+          {
+            "number": 2,
+            "brief": "4"
+          },
+          {
+            "number": 3,
+            "brief": "6"
+          },
+          {
+            "number": 4,
+            "brief": "8"
+          },
+          {
+            "number": 5,
+            "brief": "12"
+          },
+          {
+            "number": 6,
+            "brief": "16"
+          },
+          {
+            "number": 7,
+            "brief": "24"
+          }
+        ],
+        "description": "Sets the minimum number of preamble bytes to be transmitted"
+      },
+      {
+        "name": "CHANSPC_E[1:0]",
+        "startBit": 1,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 2,
+        "values": [],
+        "description": "2 bit exponent of channel spacing"
+      }
+    ],
+    "formulaNote": "Channel spacing exponent. Formula: \u0394f = (f_XOSC / 2^18) \u00d7 (256 + CHANSPC_M) \u00d7 2^CHANSPC_E."
+  },
+  {
+    "name": "MDMCFG0",
+    "address": 20,
+    "description": "Modem Configuration",
+    "bitfields": [
+      {
+        "name": "CHANSPC_M[7:0]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 248,
+        "values": [],
+        "description": "8-bit mantissa of channel spacing. The channel spacing is multiplied by the channel number CHAN and added to the base frequency. It is unsigned and has the format:\n\n(See datasheet for equation).\n\nThe default values give 199.951 kHz channel spacing (the closest setting to 200 kHz), assuming 26.0 MHz crystal frequency."
+      }
+    ],
+    "formulaNote": "Channel spacing mantissa. Formula: \u0394f = (f_XOSC / 2^18) \u00d7 (256 + CHANSPC_M) \u00d7 2^CHANSPC_E."
+  },
+  {
+    "name": "DEVIATN",
+    "address": 21,
+    "description": "Modem Deviation Setting",
+    "bitfields": [
+      {
+        "name": "DEVIATION_E[2:0]",
+        "startBit": 6,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 4,
+        "values": [],
+        "description": "Deviation exponent."
+      },
+      {
+        "name": "DEVIATION_M[2:0]",
+        "startBit": 2,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 7,
+        "values": [],
+        "description": ""
+      }
+    ],
+    "formulaNote": "Deviation formula: f_dev = (f_XOSC / 2^17) \u00d7 (8 + DEVIATION_M) \u00d7 2^DEVIATION_E. Applies to 2-FSK, GFSK, 4-FSK modes."
+  },
+  {
+    "name": "MCSM2",
+    "address": 22,
+    "description": "Main Radio Control State Machine Configuration",
+    "bitfields": [
+      {
+        "name": "RX_TIME_RSSI",
+        "startBit": 4,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Direct RX termination based on RSSI measurement (carrier sense). For ASK/OOK modulation, RX times out if there is no carrier sense in the first 8 symbol periods."
+      },
+      {
+        "name": "RX_TIME_QUAL",
+        "startBit": 3,
+        "stopBit": 3,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "When the RX_TIME timer expires, the chip checks if sync word is found when RX_TIME_QUAL=0, or either sync word is found or PQI is set when RX_TIME_QUAL=1."
+      },
+      {
+        "name": "RX_TIME[2:0]",
+        "startBit": 2,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 7,
+        "values": [],
+        "description": "Timeout for sync word search in RX for both WOR mode and normal RX operation. The timeout is relative to the programmed EVENT0 timeout.\n\nThe RX timeout in \u00b5s is given by EVENT0\u00b7C(RX_TIME, WOR_RES ) \u00b726/X, where C is given by the table below and X is the crystal oscillator frequency in MHz:\n<Table><TR><TD>Setting </TD><TD>WOR_RES = 0 </TD><TD>WOR_RES = 1 </TD><TD>WOR_RES = 2 </TD><TD>WOR_RES = 3 </TD></TR><TR><TD>0 (000) </TD><TD>3.6058 </TD><TD>18.0288 </TD><TD>32.4519 </TD><TD>46.8750 </TD></TR><TR><TD>1 (001) </TD><TD>1.8029 </TD><TD>9.0144 </TD><TD>16.2260 </TD><TD>23.4375 </TD></TR><TR><TD>2 (010) </TD><TD>0.9014 </TD><TD>4.5072 </TD><TD>8.1130 </TD><TD>11.7188 </TD></TR><TR><TD>3 (011) </TD><TD>0.4507 </TD><TD>2.2536 </TD><TD>4.0565 </TD><TD>5.8594 </TD></TR><TR><TD>4 (100) </TD><TD>0.2254 </TD><TD>1.1268 </TD><TD>2.0282 </TD><TD>2.9297 </TD></TR><TR><TD>5 (101) </TD><TD>0.1127 </TD><TD>0.5634 </TD><TD>1.0141 </TD><TD>1.4648 </TD></TR><TR><TD>6 (110) </TD><TD>0.0563 </TD><TD>0.2817 </TD><TD>0.5071 </TD><TD>0.7324 </TD></TR><TR><TD>7 (111) </TD><TD>Until end of packet </TD></TR></Table>\n\n<Table><TR><TD>Setting </TD><TD>WOR_RES=0 </TD><TD>WOR_RES=1 </TD></TR><TR><TD>0 (000) </TD><TD>12.50% </TD><TD>1.95% </TD></TR><TR><TD>1 (001) </TD><TD>6.250% </TD><TD>9765ppm </TD></TR><TR><TD>2 (010) </TD><TD>3.125% </TD><TD>4883ppm </TD></TR><TR><TD>3 (011) </TD><TD>1.563% </TD><TD>2441ppm </TD></TR><TR><TD>4 (100) </TD><TD>0.781% </TD><TD>NA </TD></TR><TR><TD>5 (101) </TD><TD>0.391% </TD><TD>NA </TD></TR><TR><TD>6 (110) </TD><TD>0.195% </TD><TD>NA </TD></TR><TR><TD>7 (111) </TD><TD>NA </TD></TR></Table>\nAs an example, EVENT0=34666, WOR_RES =0 and RX_TIME=6 corresponds to 1.96 ms RX timeout, 1 s polling interval and 0.195% duty cycle. Note that WOR_RES should be 0 or 1 when using WOR because using WOR_RES > 1 will give a very low duty cycle. In applications where WOR is not used all settings of WOR_RES can be used. The duty cycle using WOR is approximated by:\n<Table><TR><TD>Setting </TD><TD>WOR_RES=0 </TD><TD>WOR_RES=1 </TD></TR><TR><TD>0 (000) </TD><TD>12.50% </TD><TD>1.95% </TD></TR><TR><TD>1 (001) </TD><TD>6.250% </TD><TD>9765ppm </TD></TR><TR><TD>2 (010) </TD><TD>3.125% </TD><TD>4883ppm </TD></TR><TR><TD>3 (011) </TD><TD>1.563% </TD><TD>2441ppm </TD></TR><TR><TD>4 (100) </TD><TD>0.781% </TD><TD>NA </TD></TR><TR><TD>5 (101) </TD><TD>0.391% </TD><TD>NA </TD></TR><TR><TD>6 (110) </TD><TD>0.195% </TD><TD>NA </TD></TR><TR><TD>7 (111) </TD><TD>NA </TD></TR></Table>\nNote that the RC oscillator must be enabled in order to use setting 0-6, because the timeout counts RC oscillator periods. WOR mode does not need to be enabled. The timeout counter resolution is limited: With RX_TIME=0, the timeout count is given by the 13 MSBs of EVENT0, decreasing to the 7MSBs of EVENT0 with RX_TIME=6."
+      }
+    ]
+  },
+  {
+    "name": "MCSM1",
+    "address": 23,
+    "description": "Main Radio Control State Machine Configuration",
+    "bitfields": [
+      {
+        "name": "CCA_MODE[1:0]",
+        "startBit": 5,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 3,
+        "values": [],
+        "description": "Selects CCA_MODE; Reflected in CCA signal"
+      },
+      {
+        "name": "RXOFF_MODE[1:0]",
+        "startBit": 3,
+        "stopBit": 2,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Select what should happen when a packet has been received.It is not possible to set RXOFF_MODE to be TX or FSTXON and at the same time use CCA."
+      },
+      {
+        "name": "TXOFF_MODE[1:0]",
+        "startBit": 1,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Select what should happen when a packet has been sent (TX)"
+      }
+    ]
+  },
+  {
+    "name": "MCSM0",
+    "address": 24,
+    "description": "Main Radio Control State Machine Configuration",
+    "bitfields": [
+      {
+        "name": "FS_AUTOCAL[1:0]",
+        "startBit": 5,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Automatically calibrate when going to RX or TX, or back to IDLEIn some automatic wake-on-radio (WOR) applications, using setting 3 (11) can significantly reduce current consumption."
+      },
+      {
+        "name": "PO_TIMEOUT",
+        "startBit": 3,
+        "stopBit": 2,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "Programs the number of times the six-bit ripple counter must expire after XOSC has stabilized before CHP_RDYn goes low. If XOSC is on (stable) during power-down, PO_TIMEOUT should be set so that the regulated digital supply voltage has time to stabilize before CHP_RDYn goes low (PO_TIMEOUT=2 recommended). Typical start-up time for the voltage regulator is 50 \u03bcs. If XOSC is off during power-down and the regulated digital supply voltage has sufficient time to stabilize while waiting for the crystal to be stable, PO_TIMEOUT can be set to 0. For robust operation it is recommended to use PO_TIMEOUT=2.\n<Table><TR><TD>Setting </TD><TD>Expire count </TD><TD>Timeout after XOSC start </TD></TR><TR><TD>0 (00) </TD><TD>1 </TD><TD>Approx. 2.3 - 2.4 \u03bcs </TD></TR><TR><TD>1 (01) </TD><TD>16 </TD><TD>Approx. 37 - 39 \u03bcs </TD></TR><TR><TD>2 (10) </TD><TD>64 </TD><TD>Approx. 149 - 155 \u03bcs </TD></TR><TR><TD>3 (11) </TD><TD>256 </TD><TD>Approx. 597 - 620 \u03bcs </TD></TR></Table>\nExact timeout depends on crystal frequency."
+      },
+      {
+        "name": "PIN_CTRL_EN",
+        "startBit": 1,
+        "stopBit": 1,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Enables the pin radio control option"
+      },
+      {
+        "name": "XOSC_FORCE_ON",
+        "startBit": 0,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Force the XOSC to stay on in the SLEEP state."
+      }
+    ]
+  },
+  {
+    "name": "FOCCFG",
+    "address": 25,
+    "description": "Frequency Offset Compensation Configuration",
+    "bitfields": [
+      {
+        "name": "FOC_BS_CS_GATE",
+        "startBit": 5,
+        "stopBit": 5,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "If set, the demodulator freezes the frequency offset compensation and clock recovery feedback loops until the CS signal goes high."
+      },
+      {
+        "name": "FOC_PRE_K[1:0]",
+        "startBit": 4,
+        "stopBit": 3,
+        "access": "R/W",
+        "resetValue": 2,
+        "values": [],
+        "description": "The frequency compensation loop gain to be used before a sync word is detected."
+      },
+      {
+        "name": "FOC_POST_K",
+        "startBit": 2,
+        "stopBit": 2,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [
+          {
+            "number": 0,
+            "brief": "Same as FOC_PRE_K"
+          },
+          {
+            "number": 1,
+            "brief": "K/2"
+          }
+        ],
+        "description": "The frequency compensation loop gain to be used after a sync word is detected."
+      },
+      {
+        "name": "FOC_LIMIT[1:0]",
+        "startBit": 1,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 2,
+        "values": [],
+        "description": "The saturation point for the frequency offset compensation algorithm:  Frequency offset compensation is not supported for ASK/OOK; Always use FOC_LIMIT=0 with these modulation formats."
+      }
+    ]
+  },
+  {
+    "name": "BSCFG",
+    "address": 26,
+    "description": "Bit Synchronization Configuration",
+    "bitfields": [
+      {
+        "name": "BS_PRE_KI[1:0]",
+        "startBit": 7,
+        "stopBit": 6,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "The clock recovery feedback loop integral gain to be used before a sync word is detected (used to correct offsets in data rate):"
+      },
+      {
+        "name": "BS_PRE_KP[1:0]",
+        "startBit": 5,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 2,
+        "values": [],
+        "description": "The clock recovery feedback loop proportional gain to be used before a sync word is detected."
+      },
+      {
+        "name": "BS_POST_KI",
+        "startBit": 3,
+        "stopBit": 3,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [
+          {
+            "number": 0,
+            "brief": "Same as BS_PRE_KI"
+          },
+          {
+            "number": 1,
+            "brief": "KI /2"
+          }
+        ],
+        "description": "The clock recovery feedback loop integral gain to be used after a sync word is detected."
+      },
+      {
+        "name": "BS_POST_KP",
+        "startBit": 2,
+        "stopBit": 2,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [
+          {
+            "number": 0,
+            "brief": "Same as BS_PRE_KP"
+          },
+          {
+            "number": 1,
+            "brief": "KP"
+          }
+        ],
+        "description": "The clock recovery feedback loop proportional gain to be used after a sync word is detected."
+      },
+      {
+        "name": "BS_LIMIT[1:0]",
+        "startBit": 1,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "The saturation point for the data rate offset compensation algorithm:"
+      }
+    ]
+  },
+  {
+    "name": "AGCCTRL2",
+    "address": 27,
+    "description": "AGC Control",
+    "bitfields": [
+      {
+        "name": "MAX_DVGA_GAIN[1:0]",
+        "startBit": 7,
+        "stopBit": 6,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Reduces the maximum allowable DVGA gain."
+      },
+      {
+        "name": "MAX_LNA_GAIN[2:0]",
+        "startBit": 5,
+        "stopBit": 3,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Sets the maximum allowable LNA + LNA 2 gain relative to the maximum possible gain."
+      },
+      {
+        "name": "MAGN_TARGET[2:0]",
+        "startBit": 2,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 3,
+        "values": [],
+        "description": "These bits set the target value for the averaged amplitude from the digital channel filter (1 LSB = 0 dB)."
+      }
+    ]
+  },
+  {
+    "name": "AGCCTRL1",
+    "address": 28,
+    "description": "AGC Control",
+    "bitfields": [
+      {
+        "name": "AGC_LNA_PRIORITY",
+        "startBit": 6,
+        "stopBit": 6,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "Selects between two different strategies for LNA and LNA 2 gain adjustment. When 1, the LNA gain is decreased first. When 0, the LNA 2 gain is decreased to minimum before decreasing LNA gain."
+      },
+      {
+        "name": "CARRIER_SENSE_REL_THR[1:0]",
+        "startBit": 5,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Sets the relative change threshold for asserting carrier sense"
+      },
+      {
+        "name": "CARRIER_SENSE_ABS_THR[3:0]",
+        "startBit": 3,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Sets the absolute RSSI threshold for asserting carrier sense. The 2-complement signed threshold is programmed in steps of 1 dB and is relative to the MAGN_TARGET setting."
+      }
+    ]
+  },
+  {
+    "name": "AGCCTRL0",
+    "address": 29,
+    "description": "AGC Control",
+    "bitfields": [
+      {
+        "name": "HYST_LEVEL[1:0]",
+        "startBit": 7,
+        "stopBit": 6,
+        "access": "R/W",
+        "resetValue": 2,
+        "values": [],
+        "description": "Sets the level of hysteresis on the magnitude deviation (internal AGC signal that determine gain changes)."
+      },
+      {
+        "name": "WAIT_TIME[1:0]",
+        "startBit": 5,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "Sets the number of channel filter samples from a gain adjustment has been made until the AGC algorithm starts accumulating new samples."
+      },
+      {
+        "name": "AGC_FREEZE[1:0]",
+        "startBit": 3,
+        "stopBit": 2,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Control when the AGC gain should be frozen."
+      },
+      {
+        "name": "FILTER_LENGTH[1:0]",
+        "startBit": 1,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "Sets the averaging length for the amplitude from the channel filter. Sets the OOK/ASK decision boundary for OOK/ASK reception.\n<Table><TR><TD>Setting </TD><TD>Channel filter samples </TD><TD>OOK/ASK decision boundary </TD></TR><TR><TD>0 (00) </TD><TD>8 </TD><TD>4 dB </TD></TR><TR><TD>1 (01) </TD><TD>16 </TD><TD>8 dB </TD></TR><TR><TD>2 (10) </TD><TD>32 </TD><TD>12 dB </TD></TR><TR><TD>3 (11) </TD><TD>64 </TD><TD>16 dB </TD></TR></Table>"
+      }
+    ]
+  },
+  {
+    "name": "WOREVT1",
+    "address": 30,
+    "description": "High Byte Event0 Timeout",
+    "bitfields": [
+      {
+        "name": "EVENT0[15:8]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 135,
+        "values": [],
+        "description": "High byte of EVENT0 timeout register.\n\n(See datasheet for equation)."
+      }
+    ]
+  },
+  {
+    "name": "WOREVT0",
+    "address": 31,
+    "description": "Low Byte Event0 Timeout",
+    "bitfields": [
+      {
+        "name": "EVENT0[7:0]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 107,
+        "values": [],
+        "description": "Low byte of EVENT0 timeout register. The default EVENT0 value gives 1.0s timeout, assuming a 26.0 MHz crystal."
+      }
+    ]
+  },
+  {
+    "name": "WORCTRL",
+    "address": 32,
+    "description": "Wake On Radio Control",
+    "bitfields": [
+      {
+        "name": "RC_PD",
+        "startBit": 7,
+        "stopBit": 7,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "Power down signal to RC oscillator. When written to 0, automatic initial calibration will be performed"
+      },
+      {
+        "name": "EVENT1[2:0]",
+        "startBit": 6,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 7,
+        "values": [],
+        "description": "Timeout setting from register block. Decoded to Event 1 timeout. RC oscillator clock frequency equals FXOSC/750, which is 34.7 - 36 kHz, depending on crystal frequency. The table below lists the number of clock periods after Event 0 before Event 1 times out."
+      },
+      {
+        "name": "RC_CAL",
+        "startBit": 3,
+        "stopBit": 3,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "Enables (1) or disables (0) the RC oscillator calibration."
+      },
+      {
+        "name": "WOR_RES",
+        "startBit": 1,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Controls the Event 0 resolution as well as maximum timeout of the WOR module and maximum timeout under normal RX operation:\n<Table><TR><TD>Setting </TD><TD>Resolution (1 LSB) </TD><TD>Max timeout </TD></TR><TR><TD>0 (00) </TD><TD>1 period (28 - 29 \u03bcs) </TD><TD>1.8 - 1.9 seconds </TD></TR><TR><TD>1 (01) </TD><TD>2^5 periods (0.89 - 0.92 ms) </TD><TD>58 - 61 seconds </TD></TR><TR><TD>2 (10) </TD><TD>2^10 periods (28 - 30 ms) </TD><TD>31 - 32 minutes </TD></TR><TR><TD>3 (11) </TD><TD>2^15 periods (0.91 - 0.94 s) </TD><TD>16.5 - 17.2 hours </TD></TR></Table>Note that WOR_RES should be 0 or 1 when using WOR because WOR_RES > 1 will give a very low duty cycle. In normal RX operation all settings of WOR_RES can be used."
+      }
+    ]
+  },
+  {
+    "name": "FREND1",
+    "address": 33,
+    "description": "Front End RX Configuration",
+    "bitfields": [
+      {
+        "name": "LNA_CURRENT[1:0]",
+        "startBit": 7,
+        "stopBit": 6,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "Adjusts front-end LNA PTAT current output"
+      },
+      {
+        "name": "LNA2MIX_CURRENT[1:0]",
+        "startBit": 5,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "Adjusts front-end PTAT outputs"
+      },
+      {
+        "name": "LODIV_BUF_CURRENT_RX[1:0]",
+        "startBit": 3,
+        "stopBit": 2,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "Adjusts current in RX LO buffer (LO input to mixer)"
+      },
+      {
+        "name": "MIX_CURRENT[1:0]",
+        "startBit": 1,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 2,
+        "values": [],
+        "description": "Adjusts current in mixer"
+      }
+    ]
+  },
+  {
+    "name": "FREND0",
+    "address": 34,
+    "description": "Front End TX Configuration",
+    "bitfields": [
+      {
+        "name": "LODIV_BUF_CURRENT_TX[1:0]",
+        "startBit": 5,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "Adjusts current TX LO buffer (input to PA). The value to use in this field is given by the SmartRF Studio software  ."
+      },
+      {
+        "name": "PA_POWER[2:0]",
+        "startBit": 2,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Selects PA power setting. This value is an index to the PATABLE , which can be programmed with up to 8 different PA settings.\nIn OOK/ASK mode, this selects the PATABLE index to use when transmitting a \"1\". PATABLE index zero is used in OOK/ASK when transmitting a \"0\".\nThe PATABLE settings from index \"0\" to the PA_POWER value are used for ASK TX shaping, and for power ramp-up/ramp-down at the start/end of transmission in all TX modulation formats."
+      }
+    ]
+  },
+  {
+    "name": "FSCAL3",
+    "address": 35,
+    "description": "Frequency Synthesizer Calibration",
+    "bitfields": [
+      {
+        "name": "FSCAL3[7:6]",
+        "startBit": 7,
+        "stopBit": 6,
+        "access": "R/W",
+        "resetValue": 2,
+        "values": [],
+        "description": "Frequency synthesizer calibration configuration. The value to write in this field before calibration is given by the SmartRF Studio software."
+      },
+      {
+        "name": "CHP_CURR_CAL_EN[1:0]",
+        "startBit": 5,
+        "stopBit": 4,
+        "access": "R/W",
+        "resetValue": 2,
+        "values": [],
+        "description": "Disable charge pump calibration stage when 0."
+      },
+      {
+        "name": "FSCAL3[3:0]",
+        "startBit": 3,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 9,
+        "values": [],
+        "description": "Frequency synthesizer calibration result register.\nDigital bit vector defining the charge pump output current, on an exponential scale:\n\nI_OUT = I0\u00b72^FSCAL3[3:0]/4\n\nFast frequency hopping without calibration for each hop can be done by calibrating upfront for each frequency and saving the resulting FSCAL3 , FSCAL2 and FSCAL1 register values.\nBetween each frequency hop, calibration can be replaced by writing the FSCAL3 , FSCAL2 and FSCAL1 register values corresponding to the next RF frequency."
+      }
+    ]
+  },
+  {
+    "name": "FSCAL2",
+    "address": 36,
+    "description": "Frequency Synthesizer Calibration",
+    "bitfields": [
+      {
+        "name": "VCO_CORE_H_EN",
+        "startBit": 5,
+        "stopBit": 5,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "Choose high (1) / low (0) VCO"
+      },
+      {
+        "name": "FSCAL2[4:0]",
+        "startBit": 4,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 10,
+        "values": [],
+        "description": "Frequency synthesizer calibration result register.\nVCO current calibration result and override value. Fast frequency hopping without calibration for each hop can be done by calibrating upfront for each frequency and saving the resulting FSCAL3 , FSCAL2 and FSCAL1 register values.\nBetween each frequency hop, calibration can be replaced by writing the FSCAL3, FSCAL2 and FSCAL1 register values corresponding to the next RF frequency."
+      }
+    ]
+  },
+  {
+    "name": "FSCAL1",
+    "address": 37,
+    "description": "Frequency Synthesizer Calibration",
+    "bitfields": [
+      {
+        "name": "FSCAL1[5:0]",
+        "startBit": 5,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 32,
+        "values": [],
+        "description": "Frequency synthesizer calibration result register. Capacitor array setting for VCO coarse tuning. Fast frequency hopping without calibration for each hop can be done by calibrating upfront for each frequency and saving the resulting FSCAL3 , FSCAL2 and FSCAL1 register values. Between each frequency hop, calibration can be replaced by writing the FSCAL3 , FSCAL2 and FSCAL1 register values corresponding to the next RF frequency."
+      }
+    ]
+  },
+  {
+    "name": "FSCAL0",
+    "address": 38,
+    "description": "Frequency Synthesizer Calibration",
+    "bitfields": [
+      {
+        "name": "FSCAL0[6:0]",
+        "startBit": 6,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 13,
+        "values": [],
+        "description": "Frequency synthesizer calibration control. The value to use in this register is given by the SmartRF Studio software."
+      }
+    ]
+  },
+  {
+    "name": "RCCTRL1",
+    "address": 39,
+    "description": "RC Oscillator Configuration",
+    "bitfields": [
+      {
+        "name": "",
+        "startBit": 7,
+        "stopBit": 7,
+        "access": "R0",
+        "resetValue": 0,
+        "values": [],
+        "description": "Not used"
+      },
+      {
+        "name": "RCCTRL1[6:0]",
+        "startBit": 6,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 65,
+        "values": [],
+        "description": "RC oscillator configuration."
+      }
+    ]
+  },
+  {
+    "name": "RCCTRL0",
+    "address": 40,
+    "description": "RC Oscillator Configuration",
+    "bitfields": [
+      {
+        "name": "",
+        "startBit": 7,
+        "stopBit": 7,
+        "access": "R0",
+        "resetValue": 0,
+        "values": [],
+        "description": "Not used"
+      },
+      {
+        "name": "RCCTRL0[6:0]",
+        "startBit": 6,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 0,
+        "values": [],
+        "description": "RC oscillator configuration."
+      }
+    ]
+  },
+  {
+    "name": "FSTEST",
+    "address": 41,
+    "description": "Frequency Synthesizer Calibration Control",
+    "bitfields": [
+      {
+        "name": "FSTEST[7:0]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 89,
+        "values": [],
+        "description": "For test only. Do not write to this register."
+      }
+    ]
+  },
+  {
+    "name": "PTEST",
+    "address": 42,
+    "description": "Production Test",
+    "bitfields": [
+      {
+        "name": "PTEST[7:0]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 127,
+        "values": [],
+        "description": "Writing 0xBF to this register makes the on-chip temperature sensor available in the IDLE state. The default 0x7F value should then be written back before leaving the IDLE state. Other use of this register is for test only."
+      }
+    ]
+  },
+  {
+    "name": "AGCTEST",
+    "address": 43,
+    "description": "AGC Test",
+    "bitfields": [
+      {
+        "name": "AGCTEST[7:0]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 63,
+        "values": [],
+        "description": "For test only. Do not write to this register."
+      }
+    ]
+  },
+  {
+    "name": "TEST2",
+    "address": 44,
+    "description": "Various Test Settings",
+    "bitfields": [
+      {
+        "name": "TEST2[7:0]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 136,
+        "values": [],
+        "description": "The value to use in this register is given by the SmartRF Studio software.\nThis register will be forced to 0x88 or 0x81 when it wakes up from SLEEP mode, depending on the configuration of FIFOTHR. ADC_RETENTION.\nNote that the value read from this register when waking up from SLEEP always is the reset value (0x88) regardless of the ADC_RETENTION setting. The inverting of some of the bits due to the ADC_RETENTION setting is only seen INTERNALLY in the analog part."
+      }
+    ]
+  },
+  {
+    "name": "TEST1",
+    "address": 45,
+    "description": "Various Test Settings",
+    "bitfields": [
+      {
+        "name": "TEST1[7:0]",
+        "startBit": 7,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 49,
+        "values": [],
+        "description": "The value to use in this register is given by the SmartRF Studio software.\nThis register will be forced to 0x31 or 0x35 when it wakes up from SLEEP mode, depending on the configuration of FIFOTHR. ADC_RETENTION.\nNote that the value read from this register when waking up from SLEEP always is the reset value (0x31) regardless of the ADC_RETENTION setting. The inverting of some of the bits due to the ADC_RETENTION setting is only seen INTERNALLY in the analog part."
+      }
+    ]
+  },
+  {
+    "name": "TEST0",
+    "address": 46,
+    "description": "Various Test Settings",
+    "bitfields": [
+      {
+        "name": "TEST0[7:2]",
+        "startBit": 7,
+        "stopBit": 2,
+        "access": "R/W",
+        "resetValue": 2,
+        "values": [],
+        "description": "The value to use in this register is given by the SmartRF Studio software."
+      },
+      {
+        "name": "VCO_SEL_CAL_EN",
+        "startBit": 1,
+        "stopBit": 1,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "Enable VCO selection calibration stage when 1"
+      },
+      {
+        "name": "TEST0[0]",
+        "startBit": 0,
+        "stopBit": 0,
+        "access": "R/W",
+        "resetValue": 1,
+        "values": [],
+        "description": "The value to use in this register is given by the SmartRF Studio software."
+      }
+    ]
+  }
+]
