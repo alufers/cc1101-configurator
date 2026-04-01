@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
-import { Upload, Save, SaveAll } from "lucide-react";
+import { Upload, Save, SaveAll, MoreHorizontal, Share2, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ParameterPanel } from "@/components/ParameterPanel";
 import { OutputPanel } from "@/components/OutputPanel";
@@ -9,7 +10,7 @@ import { PresetSelect } from "@/components/PresetSelect";
 import { SaveAsDialog } from "@/components/SaveAsDialog";
 import { ShareButton } from "@/components/ShareButton";
 import { useCC1101Store } from "@/lib/use-cc1101-store";
-import { SYSTEM_PRESETS, RESET_PRESET_ID, decodeSharePayload, type PresetData } from "@/lib/system-presets";
+import { SYSTEM_PRESETS, RESET_PRESET_ID, decodeSharePayload, encodeSharePayload, type PresetData } from "@/lib/system-presets";
 import { loadUserPresets, upsertUserPreset, generateUserPresetId } from "@/lib/user-presets";
 import { DEFAULT_ENABLED_REGS } from "@/lib/cc1101-defaults";
 import { setBits } from "@/lib/cc1101-calculations";
@@ -37,6 +38,8 @@ function AppHeader({
   onUserPresetsChange: (p: PresetData[]) => void;
 }) {
   const [saveAsOpen, setSaveAsOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [shareCopied, setShareCopied] = useState(false);
 
   const activePresetId = useCC1101Store((s) => s.activePresetId);
   const presetName = useCC1101Store((s) => s.presetName);
@@ -112,6 +115,15 @@ function AppHeader({
     setSaveAsOpen(false);
   }
 
+  function handleCopyShareLink() {
+    const encoded = encodeSharePayload({ name: presetName, registers, paTable, crystalFreqMHz, enabledRegs });
+    const base = window.location.href.split("#")[0];
+    navigator.clipboard.writeText(`${base}#config=${encoded}`).then(() => {
+      setShareCopied(true);
+      setTimeout(() => setShareCopied(false), 2000);
+    });
+  }
+
   return (
     <>
       <div className="border-b px-3 py-2 flex items-center gap-2 bg-background shrink-0 flex-wrap">
@@ -145,12 +157,43 @@ function AppHeader({
             <SaveAll className="w-3.5 h-3.5" />
           </Button>
         </div>
-        <div className="flex items-center gap-1.5">
+        {/* Desktop: show Share + Import inline */}
+        <div className="hidden sm:flex items-center gap-1.5">
           <ShareButton />
           <Button variant="outline" size="sm" className="h-7 text-xs gap-1.5" onClick={onImport}>
             <Upload className="w-3.5 h-3.5" />
             Import
           </Button>
+        </div>
+        {/* Mobile: collapse Share + Import into ⋮ menu */}
+        <div className="flex sm:hidden">
+          <Popover open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <PopoverTrigger asChild>
+              <Button variant="outline" size="sm" className="h-7 w-7 p-0" title="More actions">
+                <MoreHorizontal className="w-3.5 h-3.5" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent align="end" className="w-44 p-1.5 flex flex-col gap-0.5">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 text-xs gap-2 justify-start w-full"
+                onClick={() => { handleCopyShareLink(); setMobileMenuOpen(false); }}
+              >
+                {shareCopied ? <Check className="w-3.5 h-3.5" /> : <Share2 className="w-3.5 h-3.5" />}
+                {shareCopied ? "Copied!" : "Copy share link"}
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 text-xs gap-2 justify-start w-full"
+                onClick={() => { onImport(); setMobileMenuOpen(false); }}
+              >
+                <Upload className="w-3.5 h-3.5" />
+                Import
+              </Button>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
 
@@ -198,10 +241,10 @@ export default function App() {
           onUserPresetsChange={setUserPresets}
         />
         <div className="flex flex-1 overflow-hidden">
-          <aside className="w-[36rem] shrink-0 border-r overflow-y-auto">
+          <aside className="hidden md:block w-[36rem] shrink-0 border-r overflow-y-auto">
             <ParameterPanel />
           </aside>
-          <main className="flex-1 overflow-hidden flex flex-col">
+          <main className="flex-1 overflow-hidden flex flex-col min-w-0">
             <OutputPanel />
           </main>
         </div>
